@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Salones</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: rgb(233, 233, 255);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #c59207;
+            color: rgb(233, 233, 255);
+            padding: 1rem;
+            width: 100%;
+            height: 65px;
+            text-align: center;
+            box-shadow: 0 1px 10px rgba(88, 88, 88, 0.5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 600;
+            font-size: 22px;
+
+        }
+
+        nav {
+            margin: 20px;
+            background-color: white;
+            width: 70%;
+            height: 65px;
+            text-align: center;
+            align-content: center;
+            border-radius: 5px;
+            box-shadow: 0 1px 10px rgba(126, 126, 126, 0.4);
+        }
+
+        nav button,
+        form button {
+            background-color: #cc9650;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+
+        }
+
+        nav button:hover,
+        form button:hover {
+            background-color: #f0b569;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #verTabla {
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 1px 10px rgba(126, 126, 126, 0.4);
+            width: 92%;
+        }
+
+        #ingresarDatos {
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 1px 10px rgba(126, 126, 126, 0.4);
+            width: 50%;
+        }
+
+        form label {
+            margin-top: 10px;
+            display: block;
+        }
+
+        form input,
+        form select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #b8b8b8;
+            border-radius: 5px;
+        }
+
+        .table-container {
+            max-width: 100%;
+            max-height: 400px;
+            overflow-x: auto;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #9e8c51;
+
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #d6c898;
+
+        }
+
+        #buscar {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #titleApartados {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+
+        }
+
+        /* Estilos para los checkboxes */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            accent-color: #cc9650;
+        }
+
+        .checkbox-container label {
+            font-weight: bold;
+        }
+
+        .checkbox-container span {
+            margin-left: 10px;
+            font-style: italic;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        Registro de Salones
+    </header>
+
+    <nav>
+        <button id="ingresarDatosBtn">Ingresar Datos del Salón</button>
+        <button id="verTablaBtn">Ver Tabla</button>
+    </nav>
+
+    <section id="ingresarDatos" class="hidden">
+        <h3>INGRESAR DATOS DEL SALÓN</h3>
+        <p style="margin-top: 5px; margin-left: 5px;">Ingrese lo siguiente:</p> <br>
+
+        <form>
+            <!-- UBICACIÓN -->
+
+            <label id="titleApartados" for="letraEdificio">EDIFICIO</label>
+            <select id="letraEdificio" name="letraEdificio">
+                <option value="B">B</option>
+                <option value="E">E</option>
+            </select>
+
+            <label id="titleApartados" for="matricuSalon">MATRICULA DEL SALÓN:</label>
+            <input type="text" id="matricuSalon" name="matricuSalon" placeholder="Coloque la matricula del salón"><br>
+
+            <hr style="width:100%;margin-top:20px; margin-bottom: 30px;">
+
+            <!-- SILLAS -->
+
+            <label id="titleApartados" for="sillas">SILLAS</label>
+
+            <label for="sillaZurdo">Cantidad de Sillas para Zurdos:</label>
+            <input type="number" id="sillaZurdo" name="sillaZurdo" placeholder="Coloque la cantidad"><br>
+
+            <label for="sillaDiestro">Cantidad de Sillas para Diestro:</label>
+            <input type="number" id="sillaDiestro" name="sillaDiestro" placeholder="Coloque la cantidad"><br>
+
+            <!------ DEBE REFLEJAR LA SUMA DE DIESTROS Y ZURDOS ------->
+
+            <label for="totalSillas">Total de Sillas:<!--TOTAL--></label>
+
+            <hr style="width:100%;margin-top:30px; margin-bottom: 30px;">
+
+            <!-- PISO -->
+
+            <label id="titleApartados" for="estadoPiso">PISO</label>
+
+            <label for="estadoPiso">Estado:</label>
+            <select id="estadoPiso" name="estadoPiso">
+                <option value="excelente">Excelente</option>
+                <option value="buena">Buena</option>
+                <option value="mala">Mala</option>
+                <option value="pesima">Pesima</option>
+            </select><br>
+
+            <label for="condiciónPiso">Condición:</label>
+            <select id="condiciónPiso" name="condiciónPiso">
+                <option value="uniforme">Uniforme</option>
+                <option value="levantado">Levantado</option>
+            </select><br>
+
+            <hr style="width:100%;margin-top:20px; margin-bottom: 30px;">
+
+            <!-- PUERTA -->
+
+            <label id="titleApartados" for="disponiblePuerta">PUERTA</label>
+
+            <label for="tipoPuerta">Tipo:</label>
+            <select id="tipoPuerta" name="tipoPuerta">
+                <option value="madera">Madera</option>
+                <option value="metalica">Metálica</option>
+            </select><br>
+
+            <label for="estadoPuerta">Estado:</label>
+            <select id="estadoPuerta" name="estadoPuerta">
+                <option value="excelente">Excelente</option>
+                <option value="buena">Buena</option>
+                <option value="mala">Mala</option>
+                <option value="pesima">Pesima</option>
+            </select><br>
+
+            <hr style="width:100%;margin-top:20px; margin-bottom: 30px;">
+
+            <!-- LUMINARIA -->
+            <label id="titleApartados" for="disponibleLuces">LUCES</label>
+
+            <label for="cantidadLuces">Cantidad de Luces:</label>
+            <input type="number" id="cantidadLuces" name="cantidadLuces" placeholder="Coloque la cantidad"><br>
+
+            <label for="cantidadFunLuces">Cantidad en funcionamiento:</label>
+            <input type="number" id="cantidadFunLuces" name="cantidadFunLuces" placeholder="Coloque la cantidad"><br>
+
+            <hr style="width:100%;margin-top:20px; margin-bottom: 30px;">
+
+            <!-- ESCRITORIO -->
+            <label id="titleApartados">ESCRITORIO:</label><br>
+            <div class="checkbox-container">
+                <input type="checkbox" id="disponibleEscri" name="disponibleEscri"><br>
+                <label for="disponibleEscri">Presiona si hay en el aula</label>
+            </div>
+
+            <div id="escritorioFields" class="hidden">
+                <label for="estadoEscri">Estado:</label>
+                <select id="estadoEscri" name="estadoEscri">
+                    <option value="excelente">Excelente</option>
+                    <option value="buena">Buena</option>
+                    <option value="mala">Mala</option>
+                    <option value="pesima">Pesima</option>
+                </select><br>
+
+                <label for="condicionEscri">Condición:</label>
+                <select id="condicionEscri" name="condicionEscri">
+                    <option value="excelente">Completo</option>
+                    <option value="buena">Con detalles</option>
+                    <option value="mala">Roto</option>
+                </select><br>
+            </div>
+
+            <hr style="width:100%;margin-top:20px; margin-bottom: 30px;">
+
+            <!-- PIZARRÓN -->
+            <label id="titleApartados">PIZARRÓN:</label><br>
+            <div class="checkbox-container">
+                <input type="checkbox" id="disponiblePiza" name="disponiblePiza"><br>
+                <label for="disponiblePiza">Presiona si hay en el aula</label>
+            </div>
+
+            <div id="pizarronFields" class="hidden">
+                <label for="estadoPizarron">Estado:</label>
+                <select id="estadoPizarron" name="estadoPizarron">
+                    <option value="excelente">Excelente</option>
+                    <option value="buena">Buena</option>
+                    <option value="mala">Mala</option>
+                    <option value="pesima">Pesima</option>
+                </select><br>
+            </div>
+
+            <hr style="width:100%;margin-top:20px; margin-bottom: 30px;">
+
+            <!-- VENTILADORES -->
+            <label id="titleApartados">VENTILADORES:</label><br>
+            <div class="checkbox-container">
+                <input type="checkbox" id="disponibleVenti" name="disponibleVenti">
+                <label for="disponibleVenti">Presiona si hay en el aula</label>
+            </div>
+
+
+            <div id="ventiladoresFields" class="hidden">
+                <label for="cantidadVenti">Cantidad de Ventiladores:</label>
+                <input type="number" id="cantidadVenti" name="cantidadVenti" placeholder="Coloque la cantidad"><br>
+
+                <label for="cantidadFunVenti">Cantidad en funcionamiento:</label>
+                <input type="number" id="cantidadFunVenti" name="cantidadFunVenti" placeholder="Coloque la cantidad"><br>
+            </div>
+
+            <hr style="width:100%;margin-top:20px; margin-bottom: 30px;">
+
+            <!-- AIRE ACONDICIONADO -->
+            <label id="titleApartados">AIRE ACONDICIONADO:</label><br>
+            <div class="checkbox-container">
+                <input type="checkbox" id="disponibleAAcon" name="disponibleAAcon">
+                <label for="disponibleAAcon">Presiona si hay en el aula</label>
+            </div>
+
+            <div id="aaFields" class="hidden">
+                <label for="funcionaAAcon">Funcionamiento:</label>
+                <select id="funcionaAAcon" name="funcionaAAcon">
+                    <option value="funciona">Funciona</option>
+                    <option value="no Funciona">No funciona</option>
+                </select><br>
+
+                <label for="observacionAAcon">Observaciones:</label>
+                <input type="text" id="observacionAAcon" name="observacionAAcon" placeholder="Indique la observación"><br>
+            </div>
+
+            <hr style="width:100%;margin-top:20px; margin-bottom: 30px;">
+
+            <!-- PROYECTOR -->
+            <label id="titleApartados">PROYECTOR:</label><br>
+            <div class="checkbox-container">
+                <input type="checkbox" id="disponibleProyec" name="disponibleProyec"><br>
+                <label for="disponibleProyec">Presiona si hay en el aula</label>
+            </div>
+
+            <div id="proyectorFields" class="hidden">
+                <label for="estadoProyec">Estado:</label>
+                <select id="estadoProyec" name="estadoProyec">
+                    <option value="excelente">Excelente</option>
+                    <option value="buena">Buena</option>
+                    <option value="mala">Mala</option>
+                    <option value="pesima">Pesima</option>
+                </select><br>
+
+                <label for="observacionProyec">Observaciones:</label>
+                <input type="text" id="observacionProyec" name="observacionProyec" placeholder="Indique la observación"><br>
+            </div>
+
+            <hr style="width:100%;margin-top:20px; margin-bottom: 30px;">
+
+            <!-- TELÓN -->
+            <label id="titleApartados">TELÓN</label><br>
+            <div class="checkbox-container">
+                <input type="checkbox" id="disponibleTelon" name="disponibleTelon"><br>
+                <label for="disponibleTelon">Presiona si hay en el aula</label>
+            </div>
+
+            <div id="telonFields" class="hidden">
+                <label for="estadoTelon">Estado:</label>
+                <select id="estadoTelon" name="estadoTelon">
+                    <option value="excelente">Excelente</option>
+                    <option value="buena">Buena</option>
+                    <option value="mala">Mala</option>
+                    <option value="pesima">Pesima</option>
+                </select><br>
+            </div>
+
+            <hr style="width:100%;margin-top:20px; margin-bottom: 30px;">
+
+            <!-- REPETIDOR -->
+            <label id="titleApartados">REPETIDOR</label><br>
+            <div class="checkbox-container">
+                <input type="checkbox" id="disponibleRepe" name="disponibleRepe"><br>
+                <label for="disponibleRepe">Presiona si hay en el aula</label>
+            </div>
+
+            <div id="repetidorFields" class="hidden">
+                <label for="estadoRepe">Estado:</label>
+                <select id="estadoRepe" name="estadoRepe">
+                    <option value="excelente">Excelente</option>
+                    <option value="buena">Buena</option>
+                    <option value="mala">Mala</option>
+                    <option value="pesima">Pesima</option>
+                </select><br>
+            </div>
+
+            <button style="margin-top: 25px;" type="submit">Guardar</button>
+        </form>
+    </section>
+
+    <section id="verTabla" class="hidden">
+        <h2>Tabla de Salones</h2><br>
+        <input style="width: 300px;" type="text" id="buscar" placeholder="Buscar en la tabla...">
+        <div class="table-container">
+            <table>
+                <thead style=" border-top-left-radius: 6px;">
+                    <tr>
+                        <th>Edificio</th> <!-- Letra -->
+                        <th>Salón</th> <!-- Matricula -->
+                        <th>Total de Sillas</th> <!-- Total de sillas-->
+                        <th>Piso</th> <!-- Estado del piso-->
+                        <th>Puerta</th> <!-- Estado de la puerta-->
+                        <th>#Luces</th> <!-- # de Luces Funcionales-->
+                        <th>Escritorio</th> <!-- Estado del escritorio-->
+                        <th>Pizarrón</th> <!-- Estado del Pizarron-->
+                        <th>#Ventiladores</th> <!-- # de Ventiladores Funcionales -->
+                        <th>Aire Acondicionado</th> <!-- Estado del A Acondicionado-->
+                        <th>Proyector</th> <!-- Estado del proyector-->
+                        <th>Telón</th> <!-- Estado del telon-->
+                        <th>Repetidor</th> <!-- Estado del Repetidor-->
+
+                        <th>Acciones</th> <!-- Ver Modificar Eliminar-->
+                    </tr>
+                    <tr></tr>
+                        <td>B</td>
+                        <td>FIE1-AUL02</td>
+                        <td>44</td>
+                        <td>Bueno</td>
+                        <td>Mala</td>
+                        <td>6</td>
+                        <td>Bueno</td>
+                        <td>Bueno</td>
+                        <td>4</td>
+                        <td>Buena</td>
+                        <td>Buena</td>
+                        <td>Buena</td>
+                        <td>No aplica</td>
+                    </tr>
+                    <tr>
+                        <td>E</td>
+                        <td>FIE1-AUL25</td>
+                        <td>48</td>
+                        <td>Bueno</td>
+                        <td>Excelente</td>
+                        <td>6</td>
+                        <td>Bueno</td>
+                        <td>Bueno</td>
+                        <td>4</td>
+                        <td>No funciona</td>
+                        <td>Buena</td>
+                        <td>Buena</td>
+                        <td>Buena</td>
+                    </tr>
+                    <tr>
+                        <td>E</td>
+                        <td>FIE1-AUL26</td>
+                        <td>36</td>
+                        <td>Bueno</td>
+                        <td>Excelente</td>
+                        <td>5</td>
+                        <td>Bueno</td>
+                        <td>Bueno</td>
+                        <td>4</td>
+                        <td>No funciona</td>
+                        <td>No aplica</td>
+                        <td>No aplica</td>
+                        <td>No aplica</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí irán los datos -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script>
+        const ingresarDatosBtn = document.getElementById('ingresarDatosBtn');
+        const verTablaBtn = document.getElementById('verTablaBtn');
+        const ingresarDatosSection = document.getElementById('ingresarDatos');
+        const verTablaSection = document.getElementById('verTabla');
+
+        ingresarDatosBtn.addEventListener('click', () => {
+            ingresarDatosSection.classList.remove('hidden');
+            verTablaSection.classList.add('hidden');
+        });
+
+        verTablaBtn.addEventListener('click', () => {
+            verTablaSection.classList.remove('hidden');
+            ingresarDatosSection.classList.add('hidden');
+        });
+
+        // Función para mostrar/ocultar campos dependiendo de los checkbox
+        function toggleVisibility(checkboxId, fieldsId) {
+            const checkbox = document.getElementById(checkboxId);
+            const fields = document.getElementById(fieldsId);
+            checkbox.addEventListener('change', () => {
+                fields.classList.toggle('hidden', !checkbox.checked);
+            });
+        }
+
+        toggleVisibility('disponibleEscri', 'escritorioFields');
+        toggleVisibility('disponiblePiza', 'pizarronFields');
+        toggleVisibility('disponibleVenti', 'ventiladoresFields');
+        toggleVisibility('disponibleAAcon', 'aaFields');
+        toggleVisibility('disponibleProyec', 'proyectorFields');
+        toggleVisibility('disponibleTelon', 'telonFields');
+        toggleVisibility('disponibleRepe', 'repetidorFields');
+    </script>
+</body>
+
+</html>
